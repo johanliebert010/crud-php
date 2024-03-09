@@ -1,0 +1,58 @@
+<?php
+include 'config.php';
+
+$sql = "SELECT * FROM cust2";
+$result = $conn->query($sql);
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User List</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+            padding: 8px;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>User List</h1>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Pesan</th>
+        </tr>
+        <?php
+        if ($result->num_rows > 0) {
+            while($row = $result->fetch_assoc()) {
+                echo "<tr>";
+                echo "<td>".$row["id"]."</td>";
+                echo "<td>".$row["name"]."</td>";
+                echo "<td>".$row["email"]."</td>";
+                echo "<td>".$row["pesan"]."</td>";
+                echo "</tr>";
+            }
+        } else {
+            echo "<tr><td colspan='4'>No users found</td></tr>";
+        }
+        ?>
+    </table>
+</body>
+</html>
+
+<?php
+$conn->close();
+?>
